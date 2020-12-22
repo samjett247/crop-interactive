@@ -98,7 +98,7 @@ def main(image_list, image_name_list = [], crop_shape = 'Rectangle', continuous_
             return
         return
     # Create image LUT based on image_name arguments
-    image_list, image_LUT = widgets_helper.create_image_name_LUT(image_list, image_name_list, optimize)
+    image_list, image_LUT = widgets_helper.create_image_name_LUT(image_list, image_name_list, optimize, grayscale)
     
     # Build the image list based on the type of image_list
     image_selector, x_size_selector, y_size_selector = widgets_helper.get_main_widgets(image_list, continuous_update)
