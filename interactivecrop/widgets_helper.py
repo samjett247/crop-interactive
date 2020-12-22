@@ -18,7 +18,7 @@ def create_image_name_LUT(image_list, image_name_list, optimize, grayscale):
             raise Exception('The length of provided image_list was {} while the length of image_name_list was {}.'.format(len(image_list), len(image_name_list)))
         images_named = True
     else:
-        images_named= False
+        images_named = False
         
     # Handles the cases where arguments were provided in str form
     if all(isinstance(image, str) for image in image_list):
@@ -26,16 +26,16 @@ def create_image_name_LUT(image_list, image_name_list, optimize, grayscale):
             if optimize:
                 if grayscale:
                     return image_name_list, {image_name_list[i]:Image.fromarray(np.array(Image.open(image_list[i])).astype(np.uint8)).convert('L') for i in range(len(image_list))}
-                else :
+                else:
                     return image_name_list, {image_name_list[i]: Image.fromarray(np.array(Image.open(image_list[i])).astype(np.uint8)) for i in range(len(image_list))}
             else:
                 return image_name_list, {image_name_list[i]:Image.open(image_list[i]) for i in range(len(image_list))}
         else:
             new_name_list = [os.path.basename(i) for i in image_list]
             if optimize:
-                if grayscale :
+                if grayscale:
                     return new_name_list, {new_name_list[i]:Image.fromarray(np.array(Image.open(image_list[i])).astype(np.uint8)).convert('L') for i in range(len(image_list))}
-                else :
+                else:
                     return new_name_list, {new_name_list[i]: Image.fromarray(np.array(Image.open(image_list[i])).astype(np.uint8)) for i in range(len(image_list))}
             else:    
                 return new_name_list, {new_name_list[i]:Image.open(image_list[i]) for i in range(len(image_list))} 
