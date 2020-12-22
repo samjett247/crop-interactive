@@ -13,7 +13,7 @@ def default_callback(im_name, im_obj):
     print('{}: {}'.format(im_name,im_obj.get_size()))
     time.sleep(1.5)
     
-def main(image_list, image_name_list = [], crop_shape = 'Rectangle', continuous_update=True, optimize = True,
+def main(image_list, image_name_list = [], crop_shape = 'Rectangle', continuous_update=True, optimize = True, grayscale=True,
     callback = default_callback):
     """
     This function takes a list of images and allows the user interactively crop these images through a vertical range slider and a horizontal range slider. Once the crop size is accepted, the callback kwarg will be called and provided the name of the cropped image (from image_list) and the shape of the cropped_image.
@@ -29,6 +29,8 @@ def main(image_list, image_name_list = [], crop_shape = 'Rectangle', continuous_
     crop_shape (str, default: Rectangle) - The desired type of crop shape; Current options - Rectangle, Ellipse, Triangle
 
     optimize (bool, default: True) - Indicates whether the program can optimize for faster updating of crop boxes, including displaying grayscale images and reducing pixel quality of display
+
+    grayscale (bool, default: True) - Indicates whether image is converted to grayscale (for viewing and saving) when optimize=True
 
     callback(function, default: prints the image name and crop size) - The function to call after the crop size is accepted via button click. The function receives the name of the image (or image index if image_list is np.ndarray objects) and the image object, defined in shapes.py. Crop size is available as a prop of the image object as img_obj.size. Similarly, modified PIL image is a prop at img_obj.image
 
@@ -96,7 +98,7 @@ def main(image_list, image_name_list = [], crop_shape = 'Rectangle', continuous_
             return
         return
     # Create image LUT based on image_name arguments
-    image_list, image_LUT = widgets_helper.create_image_name_LUT(image_list, image_name_list, optimize)
+    image_list, image_LUT = widgets_helper.create_image_name_LUT(image_list, image_name_list, optimize, grayscale)
     
     # Build the image list based on the type of image_list
     image_selector, x_size_selector, y_size_selector = widgets_helper.get_main_widgets(image_list, continuous_update)
