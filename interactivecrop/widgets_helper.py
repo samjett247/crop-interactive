@@ -44,12 +44,18 @@ def create_image_name_LUT(image_list, image_name_list, optimize, grayscale):
     elif all(isinstance(image, np.ndarray) for image in image_list):
         if images_named:
             if optimize:
-                return image_name_list, {image_name_list[i]:Image.fromarray(image_list[i].astype(np.uint8)).convert('L') for i in range(len(image_list))}
+                if grayscale:
+                    return image_name_list, {image_name_list[i]:Image.fromarray(image_list[i].astype(np.uint8)).convert('L') for i in range(len(image_list))}
+                else :
+                    return image_name_list, {image_name_list[i]: Image.fromarray(image_list[i].astype(np.uint8)) for i in range(len(image_list))}
             else:
                 return image_name_list, {image_name_list[i]:Image.fromarray(image_list[i]) for i in range(len(image_list))}
         else:
             if optimize:
-                return ['Image {}'.format(i) for i in range(len(image_list))], {'Image {}'.format(i):Image.fromarray(image_list[i].astype(np.uint8)).convert('L') for i in range(len(image_list))}
+                if grayscale:
+                    return ['Image {}'.format(i) for i in range(len(image_list))], {'Image {}'.format(i):Image.fromarray(image_list[i].astype(np.uint8)).convert('L') for i in range(len(image_list))}
+                else :
+                    return ['Image {}'.format(i) for i in range(len(image_list))], {'Image {}'.format(i): Image.fromarray(image_list[i].astype(np.uint8)) for i in range(len(image_list))}
             else:
                 return ['Image {}'.format(i) for i in range(len(image_list))], {'Image {}'.format(i):Image.fromarray(image_list[i]) for i in range(len(image_list))}
     else:
